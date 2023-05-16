@@ -89,7 +89,7 @@ class ClienteController extends ConexaoController{
         try{
             $conn  = ConexaoController::connect();
             $dados = [];
-
+            
             $sql = "SELECT * FROM cliente ";
             if($id > 0){
                 $sql .= "WHERE id = {$id} ";
@@ -134,7 +134,11 @@ class ClienteController extends ConexaoController{
             }
             $dados['status']  = 200;
             $dados['motivo']  = 'OK';
-            $dados['cliente'] = $cliente_lst;
+            if(isset($cliente_lst)){
+                $dados['cliente'] = $cliente_lst;
+            }else{
+                $dados['cliente'] = null;
+            }
         
         }catch(Exception $e){
             $dados['status'] = 400;
